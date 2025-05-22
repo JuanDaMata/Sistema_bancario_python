@@ -52,10 +52,10 @@ while True:
 
     elif opcao == "e":
         print("\n")
-        print("EXTRATO".center(40, "*"))
+        print("EXTRATO".center(45, "*"))
         print("Não foram realizadas movimentações." if not extrato else extrato)
         print(f"\n Saldo: R$ {saldo:.2f}")
-        print("".center(40, "*"))
+        print("".center(45, "*"))
 
     elif opcao == "c":
         break
