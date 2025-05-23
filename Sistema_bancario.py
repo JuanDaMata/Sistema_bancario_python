@@ -2,15 +2,17 @@ menu = """"
 
 [d] Depositar
 [s] Sacar
-[r] Regras de saque
+[i] Informações de saque
 [e] Extrato
 [c] Sair
 
 => """
 
-saldo = 0
+
 QUANTIDADE_DE_SAQUES_DIARIOS = 3
 LIMITE_CADA_SAQUE = 500
+numero_de_saques = 0
+saldo = 0
 extrato = ""
 
 while True:
@@ -31,24 +33,35 @@ while True:
     elif opcao == "s":
         valor = float(input("Informe o valor que deseja sacar: "))
 
-        if valor <= LIMITE_CADA_SAQUE and valor <= saldo and QUANTIDADE_DE_SAQUES_DIARIOS > 0 and valor > 0:
+        excedeu_saldo = valor > saldo
+        excedeu_limite_por_saque = valor > LIMITE_CADA_SAQUE
+        excedeu_quantidade_de_saque = numero_de_saques >= QUANTIDADE_DE_SAQUES_DIARIOS
+        
+        if excedeu_saldo:
+            print("\nA operação de saque falhou! Sua conta não possui saldo suficiente.")
+            
+        elif excedeu_limite_por_saque:
+            print("\nA operação de saque falhou! Você ultrapassou o valor do limite por saque, consulte seu limite por saque em informações de saque.")
+
+        elif excedeu_quantidade_de_saque:
+            print("\nA operação de saque falhou! Você excedeu o limite de saques diários, consulte sua quantidade de saques diárias em informações de saque.")
+            
+        elif valor > 0:
             saldo -= valor
-            QUANTIDADE_DE_SAQUES_DIARIOS -= 1
+            numero_de_saques += 1
             extrato += f"Saque: R$ {valor:.2f}\n"
-            print("Saque realizado com sucesso!")
+            print("\nSaque realizado com sucesso!")
         
         else:
-            print("Não foi possível realizar o operação! Verifique o motivo em Regras de saque")
+            print("\nA operação de saque falhou! O valor informado é inválido.")
 
-    
-    elif opcao == "r":
-        print("\n")
+    elif opcao == "i":
+        print("".center(60, "="))
         print(
-            f"Sua quantidade de saques diários: {QUANTIDADE_DE_SAQUES_DIARIOS}\n Seu limite máximo por saque é de: R$ {LIMITE_CADA_SAQUE:.2f}\n Seu saldo atual é: R$ {saldo:.2f}"
-        )
+            f"\nSua quantidade de saques diárias atual é de: {numero_de_saques}\n \nSua quantidade máxima de saques diários: {QUANTIDADE_DE_SAQUES_DIARIOS}\n \nSeu limite máximo por saque é de: R$ {LIMITE_CADA_SAQUE:.2f}\n \n Seu saldo atual é: R$ {saldo:.2f}"
+            )
         print("\n")
-        print("Se a quantidade de saques diários estiver zerada, se ultrapassar o limite por saque ou se seu saldo for insuficiente \n Você não poderá realizar o saque solicitado.")
-
+        print("".center(60, "="))
 
     elif opcao == "e":
         print("\n")
