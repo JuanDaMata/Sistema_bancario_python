@@ -5,7 +5,7 @@ def menu():
 
     [d]Depositar
     [s]Sacar
-    [i]informações de saque
+    [i]Informações de saque
     [e]Extrato
     [nu]Novo usuário
     [cc]Criar conta
